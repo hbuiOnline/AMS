@@ -1,0 +1,65 @@
+<!-- This main template going to store all the component such as header, footer to prevent redundant in code
+"block content"  & "enblock" , Look at these structure, this is how django tell the program to inheritance where the certain component will be place
+within the page  -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+  <!-- Favicon -->
+  <link rel="icon" href="{% static '/img/brand/favicon.png' %}" type="image/png">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <!-- Icons -->
+  <link rel="stylesheet" href="{% static '/vendor/nucleo/css/nucleo.css' %}" type="text/css"> <!--Worked-->
+  <link rel="stylesheet" href="{% static '/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css"> <!--Worked-->
+  <!-- Page plugins -->
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="{% static '/css/argon.css' %}" type="text/css">
+
+    <!-- Custom styles for this page -->
+    <link href="{% static '/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  
+  {% include 'app/sidebar.html' %}
+
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    {% include 'app/topbar.html' %}
+    
+    <!-- Page content -->
+    {% block content %}
+      
+
+    
+    {% endblock %}
+    
+  </div>
+  <!-- Argon Scripts -->
+  <!-- Core -->
+  <script src="{% static '/vendor/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static '/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static '/vendor/js-cookie/js.cookie.js' %}"></script>
+  <script src="{% static '/vendor/jquery.scrollbar/jquery.scrollbar.min.js' %}"></script>
+  <script src="{% static '/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js' %}"></script>
+  <!-- Optional JS -->
+  <script src="{% static '/vendor/chart.js/dist/Chart.min.js' %}"></script>
+  <script src="{% static '/vendor/chart.js/dist/Chart.extension.js' %}"></script>
+  <!-- Argon JS -->
+  <script src="{% static '/js/argon.js?v=1.2.0' %}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{% static '/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static '/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+</body>
+
+</html>
