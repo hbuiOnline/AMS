@@ -36,8 +36,8 @@ class Appointment(models.Model):
 
     description = models.CharField(max_length=200, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
-    # assigned = 
-    # customer = 
-    # service = 
+    assigned = models.ForeignKey(Staff, null=True, on_delete=models.SET_NULL)
+    customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
+    service = models.ForeignKey(Service, null=True, on_delete=models.SET_NULL)
     # datetime = 
-    # note = 
+    note = models.TextField(null=True)
