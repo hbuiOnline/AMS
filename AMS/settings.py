@@ -121,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/images/' #For images & videos
+MEDIA_URL = '/img/' #For images & videos
 
 STATICFILES_DIRS = [ #This is for linking the static folder into django app for static file such as css, js, images
     BASE_DIR / "static"
