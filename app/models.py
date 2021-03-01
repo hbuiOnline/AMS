@@ -30,14 +30,18 @@ class Service(models.Model):
 
 class Appointment(models.Model):
     STATUS = ( #tuple
+        ('Scheduled', 'Scheduled'),
         ('Pending', 'Pending'),
         ('Completed', 'Completed'),
     )
 
-    description = models.CharField(max_length=200, null=True)
-    status = models.CharField(max_length=200, null=True, choices=STATUS)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    status = models.CharField(max_length=200, null=True, choices=STATUS, default="Scheduled")
     assigned = models.ForeignKey(Staff, null=True, on_delete=models.SET_NULL)
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
     service = models.ForeignKey(Service, null=True, on_delete=models.SET_NULL)
     # datetime = 
-    note = models.TextField(null=True)
+    note = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.customer.name
