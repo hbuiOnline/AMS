@@ -73,8 +73,23 @@
           <div class="col-xl-8 order-xl-1">
             <div class="card bg-default shadow">
                 <div class="card-header bg-transparent border-0">
-                  <h3 class="text-white mb-0">Appointments</h3>
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="text-white mb-0">Appointments</h3>
+                        </div>
+                        <div class="col">
+                            <ul class="nav nav-pills justify-content-end">
+                                <a href="{% url 'create_appmt' customer.id %}" class="nav-link py-2 px-3 active">
+                                  <span class="d-none d-md-block">Create</span>
+                                  <span class="d-md-none">M</span>
+                                </a>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    
                 </div>
+                
                 <div class="table-responsive">
                   <table class="table align-items-center table-dark table-flush">
                     <thead class="thead-dark">
@@ -110,7 +125,7 @@
                                   </span>
                                 </td>
                                 <td><i class="fas fa-arrow-up text-success mr-3"></i>{{appointment.assigned}}</td>
-                                <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+                                <td><a class="btn btn-sm btn-info" href="{% url 'update_appointment' appointment.id %}">Update</a></td>
                                 <td><a class="btn btn-sm btn-danger" href="#">Detele</a></td>
                                 <td class="text-left">
                                     <a class="btn btn-sm btn-icon-only text-light" href="{% url 'appointment' appointment.id %}" role="button" >

@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect 
 from django.http import HttpResponse
 
 # Create your views here.
 from .models import *
+from .forms import AppointmentForm
 
 def home(request):
 
@@ -62,6 +63,35 @@ def appointment(request, pk):
 
     context = {'appointment': appointment}
     return render(request, 'app/appointment.html', context)
+
+
+#CRUD
+def createAppointment(request, pk):
+    customer = Customer.objects.get(id=pk)
+    form = AppointmentForm(initial={'customer': customer})
+
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('customer/')
+
+    context = {'form': form}
+    return render(request, 'app/schedule_appmt.html', context)
+
+
+def updateAppointment(request, pk):
+    appointment = Appointment.objects.get(id=pk)
+    form = AppointmentForm(instance=appointment)
+
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST, instance=appointment)
+        if form.is_valid():
+            form.save()
+            return redirect('/customer') #sending back to customer page
+
+    context = {'form': form}
+    return render(request, 'app/customer.html', context)
 
 
 

@@ -7,9 +7,16 @@ urlpatterns = [
     path('customers/', views.customers, name="customers"),
     path('staffs/', views.staffs, name="staffs"),
 
+    #Details
     path('customer/<str:pk>', views.customer, name="customer"),
     path('staff/<str:pk>', views.staff, name="staff"),
     path('appointment/<str:pk>', views.appointment, name="appointment"),
+
+    #CRUD
+    path('create_appmt/<str:pk>', views.createAppointment, name="create_appmt"),
+    path('update_appointment/<str:pk>', views.updateAppointment, name="update_appointment"),
+
+    
 
 
 
