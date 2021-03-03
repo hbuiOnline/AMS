@@ -32,18 +32,21 @@ within the page  -->
   
   {% include 'app/sidebar.html' %}
 
-  <!-- Main content -->
-  <div class="main-content" id="panel">
-    {% include 'app/topbar.html' %}
-    
-    <!-- Page content -->
-    {% block content %}
+    <!-- Main content -->
+    <div class="main-content" id="panel">
+      {% include 'app/topbar.html' %}
       
+      <!-- Page content -->
+      {% block content %}
+        
 
-    
-    {% endblock %}
-    
-  </div>
+      
+      {% endblock %}
+
+      {% include 'app/footer.html' %}
+      
+    </div>
+
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="{% static '/vendor/jquery/dist/jquery.min.js' %}"></script>

@@ -1,0 +1,102 @@
+{% extends 'app/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="col-md-4">
+        <div class="card-header text-left">
+            <h3 class="mb-0">Time</h3>
+        </div>
+        <div class="card card-body">
+          <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+            <div class="d-flex justify-content-between">
+              <a href="#" class="btn btn-sm btn-success  mr-4 ">Check In</a>
+              <a href="#" class="btn btn-sm btn-danger float-right">Check Out</a>
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <div class="text-center">
+             <h1 class="display-2 text-primary">{{appointment.time}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h3 class="mb-0">Appointment Details</h3>
+                    </div>
+                    <div class="col-4 text-right">
+                        <a href="#!" class="btn btn-sm btn-primary">Edit</a>
+                    </div>
+                </div>
+            </div>
+          <div class="card-body">
+            <form>
+              <h6 class="heading-small text-muted mb-4">Customer Information</h6>
+              <div class="pl-lg-4">
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label text-default" for="input-first-name">Name</label>
+                        <div class="text-primary ml-2">{{appointment.customer.name}}</div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label text-default" for="input-email">Email address</label>
+                      <div class="text-primary ml-2">{{appointment.customer.email}}</div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label text-default" for="input-last-name">Phone</label>
+                      <div class="text-primary ml-2">{{appointment.customer.phone}}</div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              <hr class="my-4" />
+              <!-- Address -->
+              <h6 class="heading-small text-muted mb-4">Service</h6>
+              <div class="pl-lg-4">
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label text-default" for="input-email">Service Type</label>
+                        <div class="text-primary ml-2">{{appointment.service}}</div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label text-default" for="input-last-name">Assigned</label>
+                        <div class="text-primary ml-2">{{appointment.assigned}}</div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <hr class="my-4" />
+              <!-- Description -->
+              <h6 class="heading-small text-muted mb-4">Description</h6>
+              <div class="pl-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Note</label>
+                  <div class="text-primary">{{appointment.note}}</div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+{% endblock  %}
+    
