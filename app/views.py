@@ -74,24 +74,35 @@ def createAppointment(request, pk):
         form = AppointmentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('customer/')
+            return redirect(customer) #need to redirect to customer/pk page
 
-    context = {'form': form}
-    return render(request, 'app/schedule_appmt.html', context)
+    context = {'form': form, 'customer': customer}
+    return render(request, 'app/appmt_form.html', context)
 
 
 def updateAppointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
+    # customer = Customer.objects.get(id=pk)
     form = AppointmentForm(instance=appointment)
 
     if request.method == 'POST':
         form = AppointmentForm(request.POST, instance=appointment)
         if form.is_valid():
             form.save()
-            return redirect('/customer') #sending back to customer page
+            return redirect('/appointments') #sending back to customer page
 
     context = {'form': form}
-    return render(request, 'app/customer.html', context)
+    return render(request, 'app/appmt_form.html', context)
+
+def deleteAppointment(request, pk):
+    appointment = Appointment.objects.get(id=pk)
+    if request.method == 'POST':
+        appointment.delete()
+        return redirect('/appointments') #for admin
+        # return redirect(customer) #for customer
+
+    context = {'appointment': appointment}
+    return render(request, 'app/delete_appmt.html', context)
 
 
 

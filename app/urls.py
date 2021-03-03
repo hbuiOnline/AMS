@@ -14,7 +14,9 @@ urlpatterns = [
 
     #CRUD
     path('create_appmt/<str:pk>', views.createAppointment, name="create_appmt"),
-    path('update_appointment/<str:pk>', views.updateAppointment, name="update_appointment"),
+    path('update_appmt/<str:pk>', views.updateAppointment, name="update_appmt"),
+    path('delete_appmt/<str:pk>', views.deleteAppointment, name="delete_appmt"),
+
 
     
 

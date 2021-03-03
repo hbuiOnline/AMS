@@ -12,6 +12,10 @@ class Customer(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return "/customer/%i" % self.id
+    
+
 class Staff(models.Model):
     name = models.CharField(max_length=200, null=True) #null=true will let insert into table without filling out all the fields
     phone = models.CharField(max_length=200, null=True)
@@ -36,10 +40,10 @@ class Appointment(models.Model):
     )
 
     # datetime = 
-    status = models.CharField(max_length=200, null=True, choices=STATUS, default="Scheduled")
     assigned = models.ForeignKey(Staff, null=True, on_delete=models.SET_NULL)
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
     service = models.ForeignKey(Service, null=True, on_delete=models.SET_NULL)
+    status = models.CharField(max_length=200, null=True, choices=STATUS, default="Scheduled")
     note = models.TextField(null=True, blank=True, default="None")
 
     def __str__(self):
