@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 from .models import *
-from .forms import AppointmentForm
+from .forms import *
 
 def home(request):
 
@@ -38,7 +38,7 @@ def staffs(request):
     context = {'staffs': staffs}
     return render(request, 'app/staffs.html', context)
 
-#Dynamic for profile
+#Dynamic For Profile
 def customer(request, pk):
     customer = Customer.objects.get(id=pk)
 
@@ -80,10 +80,20 @@ def createAppointment(request, pk):
     return render(request, 'app/appmt_form.html', context)
 
 
+def deleteAppointment(request, pk):
+    appointment = Appointment.objects.get(id=pk)
+    if request.method == 'POST':
+        appointment.delete()
+        return redirect('/appointments') #for admin
+        # return redirect(customer) #for customer
+
+    context = {'appointment': appointment}
+    return render(request, 'app/delete_appmt.html', context)
+
 def updateAppointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
-    # customer = Customer.objects.get(id=pk)
     form = AppointmentForm(instance=appointment)
+    # customer = Customer.objects.get(id=pk)
 
     if request.method == 'POST':
         form = AppointmentForm(request.POST, instance=appointment)
@@ -94,15 +104,17 @@ def updateAppointment(request, pk):
     context = {'form': form}
     return render(request, 'app/appmt_form.html', context)
 
-def deleteAppointment(request, pk):
+def statusUpdate(request, pk):
     appointment = Appointment.objects.get(id=pk)
+    statusForm = StatusForm(instance=appointment)
     if request.method == 'POST':
-        appointment.delete()
-        return redirect('/appointments') #for admin
-        # return redirect(customer) #for customer
+        statusForm = StatusForm(request.POST, instance=appointment)
+        if statusForm.is_valid():
+            statusForm.save()
+            return redirect(appointment)
 
-    context = {'appointment': appointment}
-    return render(request, 'app/delete_appmt.html', context)
+    context = {'statusForm': statusForm, 'appointment': appointment}
+    return render(request, 'app/check_in.html', context)
 
 
 

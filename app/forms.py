@@ -17,4 +17,9 @@ class AppointmentForm(ModelForm):
             'note': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+class StatusForm(ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ['status']
+        # widgets = {'status': forms.HiddenInput()}
         

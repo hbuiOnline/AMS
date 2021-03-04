@@ -17,8 +17,11 @@ urlpatterns = [
     path('update_appmt/<str:pk>', views.updateAppointment, name="update_appmt"),
     path('delete_appmt/<str:pk>', views.deleteAppointment, name="delete_appmt"),
 
+    #Status Update
+    path('check_in/<str:pk>', views.statusUpdate, name="check_in"),
+    # path('check_out/<str:pk>', views.statusUpdate, name="check_out"),
 
-    
+
 
 
 

@@ -62,3 +62,6 @@ class Appointment(models.Model):
 
     def __str__(self):
         return self.customer.name
+
+    def get_absolute_url(self):
+        return "/appointment/%i" % self.id

@@ -1,0 +1,24 @@
+{% extends 'app/main.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+<div class="row mx-9">
+    <div class="col-md-12 text-center">
+        <div class="card card-body">
+            <p>Has "{{appointment.customer.name}}" arrived?</p>
+
+            <form method="POST" action="{% url 'check_in' appointment.id %}">
+                {% csrf_token %}
+                <a class="btn btn-warning" href="{% url 'appointment' appointment.id %}">Cancel</a> <!--cancel the delete-->
+                {{statusForm}}
+                <input class="btn btn-success" type="submit" name="Confirm">
+            </form>
+
+        </div> 
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -10,8 +10,7 @@
 
             <form method="POST" action="{% url 'delete_appmt' appointment.id %}">
                 {% csrf_token %}
-                <a class="btn btn-warning" href=" {% url 'appointments' %}">Cancel</a> <!--cancel the delete-->
-
+                <a class="btn btn-warning" href="{% url 'appointments' %}">Cancel</a> <!--cancel the delete-->
                 <input class="btn btn-danger" type="submit" name="Confirm">
             </form>
 
