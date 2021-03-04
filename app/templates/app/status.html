@@ -25,18 +25,18 @@
             <div class="row">
               <div class="col">
                 <h5 class="card-title text-uppercase text-muted mb-0">Number of Appointments</h5>
-                <span class="h2 font-weight-bold mb-0">{{total_appmt}}</span>
+                <span class="h2 font-weight-bold mb-0"><a href="{% url 'appointments' %}">{{total_appmt}}</a></span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                  <i class="ni ni-active-40"></i>
+                  <i class="fas fa-calendar-alt"></i>
                 </div>
               </div>
             </div>
-            <p class="mt-3 mb-0 text-sm">
+            <!-- <p class="mt-3 mb-0 text-sm">
               <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
               <span class="text-nowrap">Since last month</span>
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
@@ -47,18 +47,18 @@
             <div class="row">
               <div class="col">
                 <h5 class="card-title text-uppercase text-muted mb-0">Number of Staffs</h5>
-                <span class="h2 font-weight-bold mb-0">{{total_staff}}</span>
+                <span class="h2 font-weight-bold mb-0"><a href="{% url 'staffs' %}">{{total_staff}}</a></span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                  <i class="ni ni-chart-pie-35"></i>
+                  <i class="fas fa-user-tie"></i>
                 </div>
               </div>
             </div>
-            <p class="mt-3 mb-0 text-sm">
+            <!-- <p class="mt-3 mb-0 text-sm">
               <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
               <span class="text-nowrap">Since last month</span>
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
@@ -69,18 +69,18 @@
             <div class="row">
               <div class="col">
                 <h5 class="card-title text-uppercase text-muted mb-0">Number of Customers</h5>
-                <span class="h2 font-weight-bold mb-0">{{total_customers}}</span>
+                <span class="h2 font-weight-bold mb-0"><a href="{% url 'customers' %}">{{total_customers}}</a></span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                  <i class="ni ni-money-coins"></i>
+                  <i class="fas fa-users"></i>
                 </div>
               </div>
             </div>
-            <p class="mt-3 mb-0 text-sm">
+            <!-- <p class="mt-3 mb-0 text-sm">
               <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
               <span class="text-nowrap">Since last month</span>
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
