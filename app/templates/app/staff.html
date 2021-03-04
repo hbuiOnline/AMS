@@ -81,10 +81,9 @@
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Service</th>
+                            <th scope="col">Date</th>
                             <th scope="col">Time</th>
                             <th scope="col">Assigned</th>
-                            <th scope="col">Update</th>
-                            <th scope="col">Delete</th>
                             <th scope="col">Detail</th>
                         </tr>
                     </thead>
@@ -103,15 +102,16 @@
                                 <td class="budget">
                                     {{appointment.service}}
                                 </td>
+                                <td class="budget">
+                                  {{appointment.date|date:"D, d M, Y"}}
+                                </td>
                                 <td>
                                   <span class="badge badge-dot mr-4">
                                     <i class="bg-warning"></i>
-                                    <span class="status"></span>
+                                    <span class="status">{{appointment.time}}</span>
                                   </span>
                                 </td>
                                 <td><i class="fas fa-arrow-up text-success mr-3"></i>{{appointment.assigned}}</td>
-                                <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
-                                <td><a class="btn btn-sm btn-danger" href="#">Detele</a></td>
                                 <td class="text-left">
                                   <a class="btn btn-sm btn-icon-only text-light" href="{% url 'appointment' appointment.id %}" role="button" >
                                       <i class="fas fa-ellipsis-v"></i>

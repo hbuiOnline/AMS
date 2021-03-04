@@ -6,10 +6,11 @@ class AppointmentForm(ModelForm):
     class Meta:
         model = Appointment
         # fields = '__all__'
-        fields = ['customer', 'assigned', 'service', 'note']
+        fields = ['customer', 'date', 'time', 'assigned', 'service', 'note']
 
         widgets = {
-            # 'datetime': forms.DateTimeInput(attrs={'class': 'form-control'}),
+            'date': forms.DateInput(attrs={'class':'form-control'}),
+            'time': forms.Select(attrs={'class': 'form-control'}),
             'assigned': forms.Select(attrs={'class': 'form-control'}),
             'customer': forms.Select(attrs={'class': 'form-control'}),
             'service': forms.Select(attrs={'class': 'form-control'}),

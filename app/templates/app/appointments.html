@@ -16,6 +16,7 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Service</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Time</th>
                     <th scope="col">Assigned</th>
                     <th scope="col">Update</th>
@@ -38,10 +39,22 @@
                         <td class="budget">
                             {{appointment.service}}
                         </td>
+                        <td class="budget">
+                          {{appointment.date|date:"D, d M, Y"}}
+                        </td>
                         <td>
                           <span class="badge badge-dot mr-4">
+                            
+                            {% if appointment.status == 'Pending' %}
+                            <i class="bg-success"></i>
+                            {% elif appointment.status == 'Scheduled'%}
                             <i class="bg-warning"></i>
-                            <span class="status"></span>
+                            {% elif appointment.status == 'Completed'%}
+                            <i class="bg-primary"></i>
+                            {% endif %}
+    
+                            
+                            <span class="status">{{appointment.time}}</span>
                           </span>
                         </td>
                         <td><i class="fas fa-arrow-up text-success mr-3"></i>{{appointment.assigned}}</td>

@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime, date
 
 # Create your models here.
 # Create class that represent our database
@@ -7,7 +8,7 @@ class Customer(models.Model):
     name = models.CharField(max_length=200, null=True) #null=true will let insert into table without filling out all the fields
     phone = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
-    date_created = models.DateTimeField(auto_now_add=True) #Auto create/insert time whenever there is created instance in the Customer table
+    date_created = models.DateTimeField(auto_now_add=True) #Auto create/insert time whenever there is created instance in the Customer table, auto_now: for update, auto_now_add: for create  
 
     def __str__(self):
         return self.name
@@ -39,7 +40,20 @@ class Appointment(models.Model):
         ('Completed', 'Completed'),
     )
 
-    # datetime = 
+    TIME = (
+        ('9:00 AM', '9:00 AM'),
+        ('10:00 AM', '10:00 AM'),
+        ('11:00 AM', '11:00 AM'),
+        ('12:00 PM', '12:00 PM'),
+        ('1:00 PM', '1:00 PM'),
+        ('2:00 PM', '2:00 PM'),
+        ('3:00 PM', '3:00 PM'),
+        ('4:00 PM', '4:00 PM'),
+    )
+
+    date_created = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    time = models.CharField(max_length=10, choices=TIME)
     assigned = models.ForeignKey(Staff, null=True, on_delete=models.SET_NULL)
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
     service = models.ForeignKey(Service, null=True, on_delete=models.SET_NULL)
