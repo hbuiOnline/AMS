@@ -35,7 +35,12 @@ within the page  -->
 
 <body>
   
+  
+  {% if request.user.is_staff %}
   {% include 'app/sidebar.html' %}
+  {% endif %}
+    
+  
 
     <!-- Main content -->
     <div class="main-content" id="panel">

@@ -10,8 +10,10 @@ from django.contrib import messages
 # Create your views here.
 from .models import *
 from .forms import *
+from .decorators import unauthenticated_user, allowed_users, admin_only
 
 
+@unauthenticated_user
 def registerPage(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -29,6 +31,7 @@ def registerPage(request):
         return render(request, 'app/register.html', context)
 
 
+@unauthenticated_user
 def loginPage(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -55,8 +58,14 @@ def logoutUser(request):
     return redirect('login')
 
 
+def userPage(request):
+    context = {}
+    return render(request, 'app/user.html', context)
+
+
 # if user is not login, send it to the login page
 @login_required(login_url='login')
+@admin_only
 def home(request):
 
     appointments = Appointment.objects.all()
@@ -79,6 +88,7 @@ def home(request):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def appointments(request):
     appointments = Appointment.objects.all()
     context = {'appointments': appointments, }
@@ -87,6 +97,7 @@ def appointments(request):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def customers(request):
     customers = Customer.objects.all()
     context = {'customers': customers}
@@ -95,6 +106,7 @@ def customers(request):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def staffs(request):
     staffs = Staff.objects.all()
     context = {'staffs': staffs}
@@ -141,6 +153,7 @@ def appointment(request, pk):
 # CRUD
 # if user is not login, send it to the login page
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def createAppointment(request, pk):
     customer = Customer.objects.get(id=pk)
     form = AppointmentForm(initial={'customer': customer})
@@ -157,6 +170,7 @@ def createAppointment(request, pk):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def deleteAppointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
     if request.method == 'POST':
@@ -170,6 +184,7 @@ def deleteAppointment(request, pk):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def updateAppointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
     form = AppointmentForm(instance=appointment)
@@ -187,6 +202,7 @@ def updateAppointment(request, pk):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def statusUpdate(request, pk):
     appointment = Appointment.objects.get(id=pk)
     statusForm = StatusForm(instance=appointment)
