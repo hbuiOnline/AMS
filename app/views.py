@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 
 from django.contrib import messages
 
@@ -15,42 +16,44 @@ from .decorators import unauthenticated_user, allowed_users, admin_only
 
 @unauthenticated_user
 def registerPage(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = CreateUserForm()
-        if request.method == 'POST':
-            form = CreateUserForm(request.POST)  # using the form in forms.py
-            if form.is_valid():
-                form.save()
-                user = form.cleaned_data.get('username')  # get the username
-                messages.success(request, 'Account was created for ' + user)
-                return redirect('login')
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)  # using the form in forms.py
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')  # get the username
 
-        context = {'form': form}
-        return render(request, 'app/register.html', context)
+            # This will let create group on registration
+            group = Group.objects.get(name='customer')
+            user.groups.add(group)
+            Customer.objects.create(
+                user=user,  # create user associated with customer
+            )
+
+            messages.success(request, 'Account was created for ' + username)
+            return redirect('login')
+
+    context = {'form': form}
+    return render(request, 'app/register.html', context)
 
 
 @unauthenticated_user
 def loginPage(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == 'POST':
-            # grab the value of these fields
-            username = request.POST.get('username')
-            # these two are from the name= in HTML template
-            password = request.POST.get('password')
+    if request.method == 'POST':
+        # grab the value of these fields
+        username = request.POST.get('username')
+        # these two are from the name= in HTML template
+        password = request.POST.get('password')
 
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-            else:
-                messages.warning(request, 'Username OR password is Incorrect')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.warning(request, 'Username OR password is Incorrect')
 
-        context = {}
-        return render(request, 'app/login.html', context)
+    context = {}
+    return render(request, 'app/login.html', context)
 
 
 def logoutUser(request):
