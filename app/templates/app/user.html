@@ -2,9 +2,72 @@
 
 
 {% block content %}
-{% include 'app/status.html' %}
+{% include 'app/user_status.html' %}
 
-<h3>User Profile</h3>
+<div class="container-fluid">
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table align-items-center table-dark table-flush">
+              <thead class="thead-dark">
+                  <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Service</th>
+                      <th scope="col">Time</th>
+                      <th scope="col">Assigned</th>
+                      <th scope="col">Update</th>
+                      <th scope="col">Delete</th>
+                      <th scope="col">Detail</th>
+                  </tr>
+              </thead>
+              <tbody class="list">
+        
+                  {% for appointment in appointments %}
+                  <tr>
+                      <tr>
+                          <th scope="row">
+                            <div class="media align-items-center">
+                              <div class="media-body">
+                                <span class="name mb-0 text-sm">{{appointment.customer.name}}</span>
+                              </div>
+                            </div>
+                          </th>
+                          <td class="budget">
+                              {{appointment.service}}
+                          </td>
+                          <td>
+                            <span class="badge badge-dot mr-4">
+                              {% if appointment.status == 'Pending' %}
+                              <i class="bg-success"></i>
+                              {% elif appointment.status == 'Scheduled'%}
+                              <i class="bg-warning"></i>
+                              {% elif appointment.status == 'Completed'%}
+                              <i class="bg-primary"></i>
+                              {% endif %}
+                              <span class="status">{{appointment.time}}</span>
+                            </span>
+                          </td>
+                          <td><i class="fas fa-arrow-up text-success mr-3"></i>{{appointment.assigned}}</td>
+                          <td><a class="btn btn-sm btn-info" href="{% url 'update_appmt' appointment.id %}">Update</a></td>
+                          <td><a class="btn btn-sm btn-danger" href="{% url 'delete_appmt' appointment.id %}">Detele</a></td>
+                          <td class="text-left">
+                              <a class="btn btn-sm btn-icon-only text-light" href="{% url 'appointment' appointment.id %}" role="button" >
+                                  <i class="fas fa-ellipsis-v"></i>
+                              </a>
+                          </td>
+                        </tr>
+                  </tr>      
+                  {% endfor %}
+        
+                
+                
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>
+
+
+
     
 {% endblock content %}
 

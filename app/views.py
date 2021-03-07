@@ -58,8 +58,17 @@ def logoutUser(request):
     return redirect('login')
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def userPage(request):
-    context = {}
+    appointments = request.user.customer.appointment_set.all()
+
+    total_appmt = appointments.count()
+    scheduled = appointments.filter(status='Scheduled').count()
+    completed = appointments.filter(status='Completed').count()
+
+    context = {'appointments': appointments, 'total_appmt': total_appmt,
+               'scheduled': scheduled, 'completed': completed}
     return render(request, 'app/user.html', context)
 
 
@@ -117,6 +126,7 @@ def staffs(request):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'customer'])
 def customer(request, pk):
     customer = Customer.objects.get(id=pk)
 
@@ -130,6 +140,7 @@ def customer(request, pk):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'staff'])
 def staff(request, pk):
     staff = Staff.objects.get(id=pk)
 
