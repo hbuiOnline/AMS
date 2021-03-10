@@ -4,7 +4,9 @@
 <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- Search form -->
+        
+        {% if request.user.is_staff %}
+          <!-- Search form -->
         <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
           <div class="form-group mb-0">
             <div class="input-group input-group-alternative input-group-merge">
@@ -18,6 +20,13 @@
             <span aria-hidden="true">×</span>
           </button>
         </form>
+        {% else %}
+          <a href="{% url 'home' %}">
+            <img src="{% static '/img/brand/white-ams.png' %}" style="height: 50px; width: auto" class="navbar-brand-img" alt="...">
+          </a>
+        {% endif %}
+          
+        
         <!-- Navbar links -->
         <ul class="navbar-nav align-items-center  ml-md-auto ">
           <li class="nav-item d-xl-none">
