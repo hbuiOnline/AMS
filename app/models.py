@@ -14,6 +14,8 @@ class Customer(models.Model):
     name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
+    profile_pic = models.ImageField(
+        default="default-profile.png", null=True, blank=True)
     # Auto create/insert time whenever there is created instance in the Customer table, auto_now: for update, auto_now_add: for create
     date_created = models.DateTimeField(auto_now_add=True)
 

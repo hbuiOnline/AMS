@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'app', #adding an app to our project so django know this folder within it
+    'app',  # adding an app to our project so django know this folder within it
 ]
 
 MIDDLEWARE = [
@@ -121,8 +121,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/img/' #For images & videos
+MEDIA_URL = '/img/'  # For images & videos
 
-STATICFILES_DIRS = [ #This is for linking the static folder into django app for static file such as css, js, images
+STATICFILES_DIRS = [  # This is for linking the static folder into django app for static file such as css, js, images
     BASE_DIR / "static"
 ]
+
+MEDIA_ROOT = BASE_DIR / "static/img/brand"
