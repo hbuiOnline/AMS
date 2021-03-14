@@ -104,10 +104,16 @@ def home(request):
     total_appmt = appointments.count()
     total_staff = staffs.count()
     total_customers = customers.count()
+    pending = appointments.filter(status="Pending").count()
+    scheduled = appointments.filter(status="Scheduled").count()
+    completed = appointments.filter(status="Completed").count()
 
     context = {'total_appmt': total_appmt,
                'total_staff': total_staff,
                'total_customers': total_customers,
+               'pending': pending,
+               'scheduled': scheduled,
+               'completed': completed,
                }
 
     return render(request, 'app/dashboard.html', context)
