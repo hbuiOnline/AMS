@@ -840,13 +840,21 @@ var BarsChart = (function () {
 
 		// Create chart
 		var ordersChart = new Chart($chart, {
-			type: 'bar',
+			type: 'pie',
 			data: {
 				labels: ['Scheduled', 'Pending', 'Completed'],
 				datasets: [{
 					label: 'Appointments',
-					data: [scheduled, pending, completed]
+					data: [scheduled, pending, completed],
+					backgroundColor: [
+						'#f5365c', //Schedule: danger color
+						'#2dce89', //Pending: success color
+						'#5e72e4', //Completed: primary color
+					],
 				}]
+			},
+			options: {
+				legend: { display: true, }
 			}
 		});
 
