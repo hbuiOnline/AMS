@@ -108,12 +108,26 @@ def home(request):
     scheduled = appointments.filter(status="Scheduled").count()
     completed = appointments.filter(status="Completed").count()
 
+    # services = []
+    # for i in range(1, 5):
+    #     services.append(appointments.filter(service=i).count())
+    service1 = appointments.filter(service=1).count()
+    service2 = appointments.filter(service=2).count()
+    service3 = appointments.filter(service=3).count()
+    service4 = appointments.filter(service=4).count()
+    service5 = appointments.filter(service=5).count()
+
     context = {'total_appmt': total_appmt,
                'total_staff': total_staff,
                'total_customers': total_customers,
                'pending': pending,
                'scheduled': scheduled,
                'completed': completed,
+               'service1': service1,
+               'service2': service2,
+               'service3': service3,
+               'service4': service4,
+               'service5': service5,
                }
 
     return render(request, 'app/dashboard.html', context)
@@ -207,7 +221,7 @@ def createAppointment(request, pk):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['admin', 'customer'])
 def deleteAppointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
     if request.method == 'POST':
@@ -221,7 +235,7 @@ def deleteAppointment(request, pk):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['admin', 'customer'])
 def updateAppointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
     form = AppointmentForm(instance=appointment)

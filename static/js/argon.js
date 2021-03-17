@@ -888,7 +888,7 @@ var SalesChart = (function () {
 	function init($chart) {
 
 		var salesChart = new Chart($chart, {
-			type: 'line',
+			type: 'bar',
 			options: {
 				scales: {
 					yAxes: [{
@@ -899,8 +899,8 @@ var SalesChart = (function () {
 						},
 						ticks: {
 							callback: function (value) {
-								if (!(value % 10)) {
-									return '$' + value + 'k';
+								if (!(value % 2)) {
+									return value + ' Appmt';
 								}
 							}
 						}
@@ -914,20 +914,20 @@ var SalesChart = (function () {
 							var content = '';
 
 							if (data.datasets.length > 1) {
-								content += '<span class="popover-body-label mr-auto">' + label + '</span>';
+								content += label;
 							}
 
-							content += '<span class="popover-body-value">$' + yLabel + 'k</span>';
+							content += yLabel;
 							return content;
 						}
 					}
 				}
 			},
 			data: {
-				labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				labels: ['Service 1', 'Service 2', 'Service 3', 'Service 4', 'Service 5'],
 				datasets: [{
 					label: 'Performance',
-					data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
+					data: [serv1, serv2, serv3, serv4, serv5]
 				}]
 			}
 		});
