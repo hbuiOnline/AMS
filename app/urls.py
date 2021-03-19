@@ -15,6 +15,7 @@ urlpatterns = [
 
     # Details
     path('user/', views.userPage, name='user-page'),
+    path('user/staff/', views.userStaffPage, name='user-staff'),
     path('account/', views.accountSettings, name='account'),
     path('customer/<str:pk>', views.customer, name="customer"),
     path('staff/<str:pk>', views.staff, name="staff"),

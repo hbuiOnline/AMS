@@ -27,10 +27,12 @@ class Customer(models.Model):
 
 
 class Staff(models.Model):
-    # null=true will let insert into table without filling out all the fields
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
+    profile_pic = models.ImageField(
+        default="default-profile.png", null=True, blank=True)
     # Auto create/insert time whenever there is created instance in the Customer table
     date_created = models.DateTimeField(auto_now_add=True)
 

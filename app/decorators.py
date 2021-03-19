@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect
 
+from .models import Customer
+
 # A decorator is a function that take in another function as a param and add another functionality before execute the function
 
 
@@ -36,11 +38,15 @@ def allowed_users(allowed_roles=[]):  # first throw in the role of the user
 def admin_only(view_func):
     def wrapper_func(request, *args, **kwargs):
         group = None
+        # customer = Customer.objects.get(id=pk)
         if request.user.groups.exists():
             group = request.user.groups.all()[0].name
 
         if group == 'customer':
             return redirect('user-page')
+
+        if group == 'staff':
+            return redirect('user-staff')
 
         if group == 'admin':
             return view_func(request, *args, **kwargs)

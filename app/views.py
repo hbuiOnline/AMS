@@ -78,6 +78,20 @@ def userPage(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['staff'])
+def userStaffPage(request):
+    appointments = request.user.staff.appointment_set.all()
+
+    total_appmt = appointments.count()
+    scheduled = appointments.filter(status='Scheduled').count()
+    completed = appointments.filter(status='Completed').count()
+
+    context = {'appointments': appointments, 'total_appmt': total_appmt,
+               'scheduled': scheduled, 'completed': completed}
+    return render(request, 'app/user-staff.html', context)
+
+
+@login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def accountSettings(request):
     customer = request.user.customer
@@ -204,7 +218,7 @@ def appointment(request, pk):
 # CRUD
 # if user is not login, send it to the login page
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['admin', 'customer'])
 def createAppointment(request, pk):
     customer = Customer.objects.get(id=pk)
     form = AppointmentForm(initial={'customer': customer})
