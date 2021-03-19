@@ -24,13 +24,14 @@ within the page  -->
   <!-- Argon CSS -->
   <link rel="stylesheet" href="{% static '/css/argon.css' %}" type="text/css">
 
-    <!-- Custom styles for this page -->
-    <link href="{% static '/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+  <!-- Custom styles for this page -->
+  <!-- For Datatables.net -->
+  <link href="{% static '/vendor/datatables/dataTables.bootstrap4.min.css' %}" type="text/css" rel="stylesheet">
 
-
-    <!-- XDSoft DateTimePicker -->
+  <!-- XDSoft DateTimePicker -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -80,10 +81,15 @@ within the page  -->
     var serv5 = {{ service5 }};
   </script>
   <script src="{% static '/js/argon.js' %}"></script>
+  
 
   <!-- Page level plugins -->
   <script src="{% static '/vendor/datatables/jquery.dataTables.min.js' %}"></script>
   <script src="{% static '/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static '/js/datatables.js' %}"></script>
+  
 </body>
 
 </html>
