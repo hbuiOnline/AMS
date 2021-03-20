@@ -62,6 +62,48 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+# if user is not login, send it to the login page
+
+
+@login_required(login_url='login')
+@admin_only
+def home(request):
+
+    appointments = Appointment.objects.all()
+    staffs = Staff.objects.all()
+    customers = Customer.objects.all()
+
+    total_appmt = appointments.count()
+    total_staff = staffs.count()
+    total_customers = customers.count()
+    pending = appointments.filter(status="Pending").count()
+    scheduled = appointments.filter(status="Scheduled").count()
+    completed = appointments.filter(status="Completed").count()
+
+    # services = []
+    # for i in range(1, 5):
+    #     services.append(appointments.filter(service=i).count())
+    service1 = appointments.filter(service=1).count()
+    service2 = appointments.filter(service=2).count()
+    service3 = appointments.filter(service=3).count()
+    service4 = appointments.filter(service=4).count()
+    service5 = appointments.filter(service=5).count()
+
+    context = {'total_appmt': total_appmt,
+               'total_staff': total_staff,
+               'total_customers': total_customers,
+               'pending': pending,
+               'scheduled': scheduled,
+               'completed': completed,
+               'service1': service1,
+               'service2': service2,
+               'service3': service3,
+               'service4': service4,
+               'service5': service5,
+               }
+
+    return render(request, 'app/dashboard.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
@@ -106,47 +148,7 @@ def accountSettings(request):
     return render(request, 'app/accountSettings.html', context)
 
 
-# if user is not login, send it to the login page
-@login_required(login_url='login')
-@admin_only
-def home(request):
-
-    appointments = Appointment.objects.all()
-    staffs = Staff.objects.all()
-    customers = Customer.objects.all()
-
-    total_appmt = appointments.count()
-    total_staff = staffs.count()
-    total_customers = customers.count()
-    pending = appointments.filter(status="Pending").count()
-    scheduled = appointments.filter(status="Scheduled").count()
-    completed = appointments.filter(status="Completed").count()
-
-    # services = []
-    # for i in range(1, 5):
-    #     services.append(appointments.filter(service=i).count())
-    service1 = appointments.filter(service=1).count()
-    service2 = appointments.filter(service=2).count()
-    service3 = appointments.filter(service=3).count()
-    service4 = appointments.filter(service=4).count()
-    service5 = appointments.filter(service=5).count()
-
-    context = {'total_appmt': total_appmt,
-               'total_staff': total_staff,
-               'total_customers': total_customers,
-               'pending': pending,
-               'scheduled': scheduled,
-               'completed': completed,
-               'service1': service1,
-               'service2': service2,
-               'service3': service3,
-               'service4': service4,
-               'service5': service5,
-               }
-
-    return render(request, 'app/dashboard.html', context)
-
-#Tables in appliacation
+#Tables in application
 
 
 # if user is not login, send it to the login page
