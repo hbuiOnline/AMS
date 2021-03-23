@@ -110,12 +110,14 @@ def home(request):
 def userPage(request):
     appointments = request.user.customer.appointment_set.all()
 
+    group = request.user.groups.all()[0].name
+
     total_appmt = appointments.count()
     scheduled = appointments.filter(status='Scheduled').count()
     completed = appointments.filter(status='Completed').count()
 
     context = {'appointments': appointments, 'total_appmt': total_appmt,
-               'scheduled': scheduled, 'completed': completed}
+               'scheduled': scheduled, 'completed': completed, 'group': group}
     return render(request, 'app/user.html', context)
 
 
@@ -124,29 +126,47 @@ def userPage(request):
 def userStaffPage(request):
     appointments = request.user.staff.appointment_set.all()
 
+    group = request.user.groups.all()[0].name
+
     total_appmt = appointments.count()
     scheduled = appointments.filter(status='Scheduled').count()
     completed = appointments.filter(status='Completed').count()
 
     context = {'appointments': appointments, 'total_appmt': total_appmt,
-               'scheduled': scheduled, 'completed': completed}
+               'scheduled': scheduled, 'completed': completed, 'group': group}
     return render(request, 'app/user-staff.html', context)
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
-def accountSettings(request):
+def customerAccountSettings(request):
     customer = request.user.customer
     form = CustomerForm(instance=customer)
+    group = request.user.groups.all()[0].name
 
     if request.method == 'POST':
         form = CustomerForm(request.POST, request.FILES, instance=customer)
         if form.is_valid():
             form.save()
 
-    context = {'form': form, 'customer': customer}
-    return render(request, 'app/accountSettings.html', context)
+    context = {'form': form, 'customer': customer, 'group': group}
+    return render(request, 'app/customerAccount.html', context)
 
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['staff'])
+def staffAccountSettings(request):
+    staff = request.user.staff
+    form = StaffForm(instance=staff)
+    group = request.user.groups.all()[0].name
+
+    if request.method == 'POST':
+        form = StaffForm(request.POST, request.FILES, instance=staff)
+        if form.is_valid():
+            form.save()
+
+    context = {'form': form, 'staff': staff, 'group': group}
+    return render(request, 'app/staffAccount.html', context)
 
 #Tables in application
 

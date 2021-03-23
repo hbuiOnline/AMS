@@ -51,3 +51,16 @@ class CustomerForm(ModelForm):
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+
+class StaffForm(ModelForm):
+    class Meta:
+        model = Staff
+        fields = '__all__'
+        exclude = ['user']
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control'}),
+        }

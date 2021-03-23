@@ -16,7 +16,8 @@ urlpatterns = [
     # Details
     path('user/', views.userPage, name='user-page'),
     path('user/staff/', views.userStaffPage, name='user-staff'),
-    path('account/', views.accountSettings, name='account'),
+    path('account/customer', views.customerAccountSettings, name='customer_account'),
+    path('account/staff', views.staffAccountSettings, name='staff_account'),
     path('customer/<str:pk>', views.customer, name="customer"),
     path('staff/<str:pk>', views.staff, name="staff"),
     path('appointment/<str:pk>', views.appointment, name="appointment"),
