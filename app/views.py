@@ -14,6 +14,7 @@ from .forms import *
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
 
+@unauthenticated_user
 def register(request):
     return render(request, 'app/register.html')
 
