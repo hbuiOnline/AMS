@@ -14,8 +14,12 @@ from .forms import *
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
 
+def register(request):
+    return render(request, 'app/register.html')
+
+
 @unauthenticated_user
-def registerPage(request):
+def registerCustomer(request):
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)  # using the form in forms.py
@@ -29,14 +33,37 @@ def registerPage(request):
             Customer.objects.create(
                 user=user,  # create user associated with customer
                 name=username,
-
             )
 
             messages.success(request, 'Account was created for ' + username)
             return redirect('login')
 
     context = {'form': form}
-    return render(request, 'app/register.html', context)
+    return render(request, 'app/registerCustomer.html', context)
+
+
+@unauthenticated_user
+def registerStaff(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)  # using the form in forms.py
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')  # get the username
+
+            # This will let create group on registration
+            group = Group.objects.get(name='staff')
+            user.groups.add(group)
+            Customer.objects.create(
+                user=user,  # create user associated with customer
+                name=username,
+            )
+
+            messages.success(request, 'Account was created for ' + username)
+            return redirect('login')
+
+    context = {'form': form}
+    return render(request, 'app/registerStaff.html', context)
 
 
 @unauthenticated_user

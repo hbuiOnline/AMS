@@ -37,73 +37,8 @@
   </head>
 
 <body class="bg-default">
-  <!-- Navbar -->
-  <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
-    <div class="container">
-      <a class="navbar-brand" href="{% url 'login' %}">
-        <img src=" {% static '/img/brand/white-ams.png' %} ">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse navbar-custom-collapse collapse" id="navbar-collapse">
-        <div class="navbar-collapse-header">
-          <div class="row">
-            <div class="col-6 collapse-brand">
-              <a href="#">
-                <img src=" {% static '/img/brand/blue.png' %}">
-              </a>
-            </div>
-            <div class="col-6 collapse-close">
-              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a href="{% url 'login' %}" class="nav-link">
-              <span class="nav-link-inner--text">Login</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'registerCustomer' %}" class="nav-link">
-              <span class="nav-link-inner--text">Register</span>
-            </a>
-          </li>
-        </ul>
-        <hr class="d-lg-none" />
-        <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-          <li class="nav-item">
-            <a class="nav-link nav-link-icon" href="" target="_blank" data-toggle="tooltip" data-original-title="Like us on Facebook">
-              <i class="fab fa-facebook-square"></i>
-              <span class="nav-link-inner--text d-lg-none">Facebook</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-link-icon" href="" target="_blank" data-toggle="tooltip" data-original-title="Follow us on Instagram">
-              <i class="fab fa-instagram"></i>
-              <span class="nav-link-inner--text d-lg-none">Instagram</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-link-icon" href="" target="_blank" data-toggle="tooltip" data-original-title="Follow us on Twitter">
-              <i class="fab fa-twitter-square"></i>
-              <span class="nav-link-inner--text d-lg-none">Twitter</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-link-icon" href="" target="_blank" data-toggle="tooltip" data-original-title="Star us on Github">
-              <i class="fab fa-github"></i>
-              <span class="nav-link-inner--text d-lg-none">Github</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+
+  {% include 'app/authNav.html' %}
   <!-- Main content -->
   <div class="main-content">
     <!-- Header -->
@@ -126,30 +61,11 @@
     </div>
     <!-- Page content -->
     <div class="container mt--8 pb-5">
-      <!-- Table -->
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-          <div class="card bg-secondary border-0">
-            
-            <div class="card-body px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <h2 class='display-2'>Sign up for free account</h2>
-              </div>
-              <div class="text-center text-muted mb-4">
-                  <h3 class="dislay-3">Select below the type of account you want to create</h4>
-              </div>
-              <div class="text-center">
-                <a class="btn btn-info" href="{% url 'registerCustomer' %}">Customer</a>
-                <a class="btn btn-danger" href="{% url 'registerStaff' %}">Staff</a>
-              </div>
-              
-
-              
-            </div>              
-            
-          </div>
-        </div>
-      </div>
+      
+      {% block content %}
+          
+      {% endblock content %}
+          
     </div>
   </div>
   <!-- Footer -->
@@ -163,7 +79,14 @@
       //We start indexing at one because CSRF_token is considered and input field 
       */
 
-      
+      //Query All input fields
+      var form_fields = document.getElementsByTagName('input')
+      form_fields[1].placeholder='Username..';
+      form_fields[2].placeholder='Email..';
+      form_fields[3].placeholder='Enter password...';
+      form_fields[4].placeholder='Re-enter Password...';
+
+
       for (var field in form_fields){	
       form_fields[field].className += ' form-control'
       }
