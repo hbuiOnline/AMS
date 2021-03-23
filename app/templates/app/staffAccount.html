@@ -73,6 +73,9 @@
           <div class="col-xl-8 order-xl-1">
             <div class="card bg-default shadow">
                 <div class="card-header border-0">
+                    {% if request.user.staff.email is None or request.user.staff.phone is None %}
+                    <h3 class="alert alert-warning text-center">You need to update your profile!</h3>
+                    {% endif %}
                     <form method="POST" role="form" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{form.as_p}}

@@ -43,9 +43,14 @@
                     <div class="col-8">
                         <h3 class="mb-0">Appointment Details</h3>
                     </div>
+                    
+                    {% if request.user.is_staff %}
                     <div class="col-4 text-right">
-                        <a href="#!" class="btn btn-sm btn-primary">Edit</a>
+                      <a href="#!" class="btn btn-sm btn-primary">Edit</a>
                     </div>
+                    {% endif %}
+                      
+                    
                 </div>
             </div>
           <div class="card-body">

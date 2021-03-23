@@ -262,8 +262,9 @@ def staff(request, pk):
 @login_required(login_url='login')
 def appointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
+    group = request.user.groups.all()[0].name
 
-    context = {'appointment': appointment}
+    context = {'appointment': appointment, 'group': group}
     return render(request, 'app/appointment.html', context)
 
 
@@ -279,7 +280,11 @@ def createAppointment(request, pk):
         form = AppointmentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(customer)  # need to redirect to customer/pk page
+            if request.user.is_staff:
+                # for admin to redirect to customer/pk page
+                return redirect(customer)
+            else:
+                return redirect('home')  # for customer user
 
     context = {'form': form, 'customer': customer}
     return render(request, 'app/appmt_form.html', context)
@@ -292,8 +297,10 @@ def deleteAppointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
     if request.method == 'POST':
         appointment.delete()
-        return redirect('/appointments')  # for admin
-        # return redirect(customer) #for customer
+        if request.user.is_staff:
+            return redirect('/appointments')  # for admin
+        else:
+            return redirect('user-page')  # for customer user can delete
 
     context = {'appointment': appointment}
     return render(request, 'app/delete_appmt.html', context)
@@ -301,7 +308,7 @@ def deleteAppointment(request, pk):
 
 # if user is not login, send it to the login page
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'customer'])
+@allowed_users(allowed_roles=['admin'])
 def updateAppointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
     form = AppointmentForm(instance=appointment)
@@ -311,7 +318,7 @@ def updateAppointment(request, pk):
         form = AppointmentForm(request.POST, instance=appointment)
         if form.is_valid():
             form.save()
-            return redirect('/appointments')  # sending back to customer page
+            return redirect('/appointments')
 
     context = {'form': form}
     return render(request, 'app/appmt_form.html', context)
