@@ -32,7 +32,8 @@ def registerCustomer(request):
             user.groups.add(group)
             Customer.objects.create(
                 user=user,  # create user associated with customer
-                name=username,
+                name=request.POST.get('first_name') + \
+                " " + request.POST.get('last_name'),
             )
 
             messages.success(request, 'Account was created for ' + username)
@@ -54,9 +55,10 @@ def registerStaff(request):
             # This will let create group on registration
             group = Group.objects.get(name='staff')
             user.groups.add(group)
-            Customer.objects.create(
+            Staff.objects.create(
                 user=user,  # create user associated with customer
-                name=username,
+                name=request.POST.get('first_name') + \
+                " " + request.POST.get('last_name'),
             )
 
             messages.success(request, 'Account was created for ' + username)

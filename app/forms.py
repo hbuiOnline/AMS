@@ -13,7 +13,8 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         # this will give the form of only these fields
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username',
+                  'email', 'password1', 'password2']
 
 
 class AppointmentForm(ModelForm):
