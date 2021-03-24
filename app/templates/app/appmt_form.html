@@ -14,7 +14,79 @@
       <div class="col-lg-10 m-3">
           <form method="POST" action="">
             {% csrf_token %}
-            {{form.as_p}}
+            
+            
+            {% if request.user.is_staff %}
+            <div class="form-group {% if field.errors %}has-error{%endif%}">
+              <label class="form-label text-primary">Customer</label>
+              <div class="input-group input-group-merge input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                </div>
+                {{form.customer}}
+              </div>
+            </div>
+            {% endif %}
+            
+            <div class="form-group {% if field.errors %}has-error{%endif%}">
+              <label class="form-label text-primary">Date</label>
+              <div class="input-group input-group-merge input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                </div>
+                {{ form.date }}
+              </div>
+            </div>
+
+            <div class="form-group {% if field.errors %}has-error{%endif%}">
+              <label class="form-label text-primary">Time</label>
+              <div class="input-group input-group-merge input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                </div>
+                {{form.time}}
+              </div>
+            </div>
+
+            <div class="form-group {% if field.errors %}has-error{%endif%}">
+              <label class="form-label text-primary">Assigned</label>
+              <div class="input-group input-group-merge input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                </div>
+                {{form.assigned}}
+              </div>
+            </div>
+
+            <div class="form-group {% if field.errors %}has-error{%endif%}">
+              <label class="form-label text-primary">Service</label>
+              <div class="input-group input-group-merge input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-project-diagram"></i></span>
+                </div>
+                {{form.service}}
+              </div>
+            </div>
+
+            <div class="form-group {% if field.errors %}has-error{%endif%}">
+              <label class="form-label text-primary">Note</label>
+              <div class="input-group input-group-merge input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-sticky-note"></i></span>
+                </div>
+                {{form.note}}
+              </div>
+            </div>
+             
+
+            
+            
+            
+            
+            
+
+
+            <!-- {{form.as_p}} -->
             
             <input class="btn btn-primary mt-3" type="submit" name="submit">
           </form>

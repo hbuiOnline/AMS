@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'app',  # adding an app to our project so django know this folder within it
+
 ]
 
 MIDDLEWARE = [

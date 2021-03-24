@@ -6,11 +6,18 @@
 <div class="row mx-9">
     <div class="col-md-12 text-center">
         <div class="card card-body">
-            <p>Are you sure you want to delete "{{appointment}}"?</p>
+            <p>Are you sure you want to delete appointment for "{{appointment}}"?</p>
 
             <form method="POST" action="{% url 'delete_appmt' appointment.id %}">
                 {% csrf_token %}
+                
+                {% if request.user.is_staff %}
                 <a class="btn btn-warning" href="{% url 'appointments' %}">Cancel</a> <!--cancel the delete-->
+                {% else %}
+                <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a> <!--cancel the delete-->
+                {% endif %}
+                    
+                
                 <input class="btn btn-danger" type="submit" name="Confirm">
             </form>
 

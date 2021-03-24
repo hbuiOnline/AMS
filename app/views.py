@@ -275,6 +275,7 @@ def appointment(request, pk):
 def createAppointment(request, pk):
     customer = Customer.objects.get(id=pk)
     form = AppointmentForm(initial={'customer': customer})
+    group = request.user.groups.all()[0].name
 
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
@@ -286,7 +287,7 @@ def createAppointment(request, pk):
             else:
                 return redirect('home')  # for customer user
 
-    context = {'form': form, 'customer': customer}
+    context = {'form': form, 'customer': customer, 'group': group}
     return render(request, 'app/appmt_form.html', context)
 
 
@@ -295,6 +296,7 @@ def createAppointment(request, pk):
 @allowed_users(allowed_roles=['admin', 'customer'])
 def deleteAppointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
+    group = request.user.groups.all()[0].name
     if request.method == 'POST':
         appointment.delete()
         if request.user.is_staff:
@@ -302,7 +304,7 @@ def deleteAppointment(request, pk):
         else:
             return redirect('user-page')  # for customer user can delete
 
-    context = {'appointment': appointment}
+    context = {'appointment': appointment, 'group': group}
     return render(request, 'app/delete_appmt.html', context)
 
 
@@ -312,7 +314,7 @@ def deleteAppointment(request, pk):
 def updateAppointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
     form = AppointmentForm(instance=appointment)
-    # customer = Customer.objects.get(id=pk)
+    group = request.user.groups.all()[0].name
 
     if request.method == 'POST':
         form = AppointmentForm(request.POST, instance=appointment)
@@ -320,7 +322,7 @@ def updateAppointment(request, pk):
             form.save()
             return redirect('/appointments')
 
-    context = {'form': form}
+    context = {'form': form, 'group': group}
     return render(request, 'app/appmt_form.html', context)
 
 
