@@ -1,0 +1,17 @@
+{% extends 'app/main.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+<div class="row mx-9">
+    <div class="col-md-12 text-center">
+        <div class="card card-body">
+            <p class="display-4">You are unauthorized to view this page.</p>
+
+            <a class="btn btn-danger mx-9" href="{% url 'home' %}">Go Back</a> <!--cancel the delete-->
+
+        </div> 
+    </div>
+</div>
+
+{% endblock %}

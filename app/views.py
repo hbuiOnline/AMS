@@ -340,3 +340,7 @@ def statusUpdate(request, pk):
 
     context = {'statusForm': statusForm, 'appointment': appointment}
     return render(request, 'app/check_in.html', context)
+
+
+def unauthorizedPage(request):
+    return render(request, 'app/unauthorized.html')

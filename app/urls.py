@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),
 
+    # Data Tables
     path('', views.home, name="home"),
     path('appointments/', views.appointments, name="appointments"),
     path('customers/', views.customers, name="customers"),
@@ -32,6 +33,9 @@ urlpatterns = [
     # Status Update
     path('check_in/<str:pk>', views.statusUpdate, name="check_in"),
     # path('check_out/<str:pk>', views.statusUpdate, name="check_out"),
+
+    # Unauthorized Page
+    path('unauthorized/', views.unauthorizedPage, name="unauthorized"),
 
 
 
