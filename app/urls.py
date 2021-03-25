@@ -31,8 +31,8 @@ urlpatterns = [
     path('delete_appmt/<str:pk>', views.deleteAppointment, name="delete_appmt"),
 
     # Status Update
-    path('check_in/<str:pk>', views.statusUpdate, name="check_in"),
-    # path('check_out/<str:pk>', views.statusUpdate, name="check_out"),
+    path('check_in/<str:pk>', views.statusCheckIn, name="check_in"),
+    path('check_out/<str:pk>', views.statusCheckOut, name="check_out"),
 
     # Unauthorized Page
     path('unauthorized/', views.unauthorizedPage, name="unauthorized"),

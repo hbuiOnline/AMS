@@ -329,7 +329,7 @@ def updateAppointment(request, pk):
 # if user is not login, send it to the login page
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
-def statusUpdate(request, pk):
+def statusCheckIn(request, pk):
     appointment = Appointment.objects.get(id=pk)
     statusForm = StatusForm(initial={'status': 'Pending'})
     if request.method == 'POST':
@@ -340,6 +340,21 @@ def statusUpdate(request, pk):
 
     context = {'statusForm': statusForm, 'appointment': appointment}
     return render(request, 'app/check_in.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def statusCheckOut(request, pk):
+    appointment = Appointment.objects.get(id=pk)
+    statusForm = StatusForm(initial={'status': 'Completed'})
+    if request.method == 'POST':
+        statusForm = StatusForm(request.POST, instance=appointment)
+        if statusForm.is_valid():
+            statusForm.save()
+            return redirect(appointment)
+
+    context = {'statusForm': statusForm, 'appointment': appointment}
+    return render(request, 'app/check_out.html', context)
 
 
 def unauthorizedPage(request):
