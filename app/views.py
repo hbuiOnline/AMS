@@ -331,7 +331,7 @@ def updateAppointment(request, pk):
 @allowed_users(allowed_roles=['admin'])
 def statusUpdate(request, pk):
     appointment = Appointment.objects.get(id=pk)
-    statusForm = StatusForm(instance=appointment)
+    statusForm = StatusForm(initial={'status': 'Pending'})
     if request.method == 'POST':
         statusForm = StatusForm(request.POST, instance=appointment)
         if statusForm.is_valid():
@@ -343,4 +343,6 @@ def statusUpdate(request, pk):
 
 
 def unauthorizedPage(request):
-    return render(request, 'app/unauthorized.html')
+    group = request.user.groups.all()[0].name
+    context = {'group': group}
+    return render(request, 'app/unauthorized.html', context)
