@@ -11,7 +11,7 @@
             <form method="POST" action="{% url 'check_in' appointment.id %}">
                 {% csrf_token %}
                 <a class="btn btn-warning" href="{% url 'appointment' appointment.id %}">Cancel</a> <!--cancel the delete-->
-                {{statusForm}}
+                <div class="d-none">{{statusForm}}</div>
                 <input class="btn btn-success" type="submit" name="Confirm">
             </form>
 
