@@ -113,11 +113,11 @@ def home(request):
     # services = []
     # for i in range(1, 5):
     #     services.append(appointments.filter(service=i).count())
-    service1 = appointments.filter(service=1).count()
-    service2 = appointments.filter(service=2).count()
-    service3 = appointments.filter(service=3).count()
-    service4 = appointments.filter(service=4).count()
-    service5 = appointments.filter(service=5).count()
+    service1 = appointments.filter(service__description='Service 1').count()
+    service2 = appointments.filter(service__description='Service 2').count()
+    service3 = appointments.filter(service__description='Service 3').count()
+    service4 = appointments.filter(service__description='Service 4').count()
+    service5 = appointments.filter(service__description='Service 5').count()
 
     context = {'total_appmt': total_appmt,
                'total_staff': total_staff,
