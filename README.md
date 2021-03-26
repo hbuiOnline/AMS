@@ -1,6 +1,6 @@
 # Appointment Management System (AMS)
 
-Python Django web application for appointment management system
+Python Django web application using MVT pattern with scheduling system between multiple appointors and appointees. Applied model migration and routing within the Django framework. Authentication & authorization for staff and customers for access restrictions.
 
 ## Technologies
 
