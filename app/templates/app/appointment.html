@@ -24,11 +24,11 @@
             </div>
             
             <div class="text-center">
-              {% if appointment.status == 'Scheduled' %}
+              {% if appointment.status == 'Completed' %}
               <h3 class="display-5 text-danger">{{appointment.status}}</h3>
               {% elif appointment.status == 'Pending' %}
               <h3 class="display-5 text-success">{{appointment.status}}</h3>
-              {% elif appointment.status == 'Completed' %}
+              {% elif appointment.status == 'Scheduled' %}
               <h3 class="display-5 text-primary">{{appointment.status}}</h3>
               {% endif %}
             </div>

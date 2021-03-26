@@ -847,9 +847,9 @@ var BarsChart = (function () {
 					label: 'Appointments',
 					data: [scheduled, pending, completed],
 					backgroundColor: [
-						'#f5365c', //Schedule: danger color
+						'#5e72e4', //Scheduled: primary color
 						'#2dce89', //Pending: success color
-						'#5e72e4', //Completed: primary color
+						'#f5365c', //Completed: danger color
 					],
 				}]
 			},
