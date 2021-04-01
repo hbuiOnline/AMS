@@ -14,6 +14,7 @@ from .forms import *
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
 
+# Login/Logout System ----------------------------------------------------------------
 @unauthenticated_user
 def register(request):
     return render(request, 'app/register.html')
@@ -92,9 +93,9 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+
+# Home Page ----------------------------------------------------------------
 # if user is not login, send it to the login page
-
-
 @login_required(login_url='login')
 @admin_only
 def home(request):
@@ -167,6 +168,7 @@ def userStaffPage(request):
     return render(request, 'app/user-staff.html', context)
 
 
+# Account Settings ----------------------------------------------------------------
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def customerAccountSettings(request):
@@ -198,10 +200,10 @@ def staffAccountSettings(request):
     context = {'form': form, 'staff': staff, 'group': group}
     return render(request, 'app/staffAccount.html', context)
 
-#Tables in application
+# Tables in application
+# Object Lists ----------------------------------------------------------------
 
 
-# if user is not login, send it to the login page
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def appointments(request):
@@ -210,7 +212,6 @@ def appointments(request):
     return render(request, 'app/appointments.html', context)
 
 
-# if user is not login, send it to the login page
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def customers(request):
@@ -219,7 +220,6 @@ def customers(request):
     return render(request, 'app/customers.html', context)
 
 
-# if user is not login, send it to the login page
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def staffs(request):
@@ -227,10 +227,9 @@ def staffs(request):
     context = {'staffs': staffs}
     return render(request, 'app/staffs.html', context)
 
-# Dynamic For Profile
 
+# Dynamic For Profile ----------------------------------------------------------------
 
-# if user is not login, send it to the login page
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin', 'customer'])
 def customer(request, pk):
@@ -244,7 +243,6 @@ def customer(request, pk):
     return render(request, 'app/customer.html', context)
 
 
-# if user is not login, send it to the login page
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin', 'staff'])
 def staff(request, pk):
@@ -258,7 +256,6 @@ def staff(request, pk):
     return render(request, 'app/staff.html', context)
 
 
-# if user is not login, send it to the login page
 @login_required(login_url='login')
 def appointment(request, pk):
     appointment = Appointment.objects.get(id=pk)
@@ -268,8 +265,7 @@ def appointment(request, pk):
     return render(request, 'app/appointment.html', context)
 
 
-# CRUD
-# if user is not login, send it to the login page
+# CRUD Operations ----------------------------------------------------------------
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin', 'customer'])
 def createAppointment(request, pk):
@@ -293,7 +289,6 @@ def createAppointment(request, pk):
     return render(request, 'app/appmt_form.html', context)
 
 
-# if user is not login, send it to the login page
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin', 'customer'])
 def deleteAppointment(request, pk):
@@ -312,7 +307,6 @@ def deleteAppointment(request, pk):
     return render(request, 'app/delete_appmt.html', context)
 
 
-# if user is not login, send it to the login page
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def updateAppointment(request, pk):
@@ -332,7 +326,7 @@ def updateAppointment(request, pk):
     return render(request, 'app/appmt_form.html', context)
 
 
-# if user is not login, send it to the login page
+# Check-In Check-Out System ----------------------------------------------------------------
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def statusCheckIn(request, pk):
