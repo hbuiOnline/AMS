@@ -36,9 +36,9 @@
                             <span class="badge badge-dot mr-4">
                               {% if appointment.status == 'Pending' %}
                               <i class="bg-success"></i>
-                              {% elif appointment.status == 'Scheduled'%}
-                              <i class="bg-warning"></i>
                               {% elif appointment.status == 'Completed'%}
+                              <i class="bg-warning"></i>
+                              {% elif appointment.status == 'Scheduled'%}
                               <i class="bg-primary"></i>
                               {% endif %}
                               <span class="status">{{appointment.time}}</span>
