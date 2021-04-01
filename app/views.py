@@ -281,6 +281,8 @@ def createAppointment(request, pk):
         form = AppointmentForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Appointment for "' +
+                             customer.name + '" has been created!')
             if request.user.is_staff:
                 # for admin to redirect to customer/pk page
                 return redirect(customer)
@@ -299,6 +301,8 @@ def deleteAppointment(request, pk):
     group = request.user.groups.all()[0].name
     if request.method == 'POST':
         appointment.delete()
+        messages.warning(request, 'Appointment for "' +
+                         appointment.customer.name + '" has been deleted!')
         if request.user.is_staff:
             return redirect('/appointments')  # for admin
         else:
@@ -320,6 +324,8 @@ def updateAppointment(request, pk):
         form = AppointmentForm(request.POST, instance=appointment)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Appointment for "' +
+                             appointment.customer.name + '" has been updated!')
             return redirect('/appointments')
 
     context = {'form': form, 'group': group}
@@ -336,6 +342,8 @@ def statusCheckIn(request, pk):
         statusForm = StatusForm(request.POST, instance=appointment)
         if statusForm.is_valid():
             statusForm.save()
+            # messages.success(request, '"' +
+            #                  appointment.customer.name + '" just Check-In at ' + datetime.now().strftime('%H:%M:%S') + '!')
             return redirect(appointment)
 
     context = {'statusForm': statusForm, 'appointment': appointment}
@@ -351,6 +359,8 @@ def statusCheckOut(request, pk):
         statusForm = StatusForm(request.POST, instance=appointment)
         if statusForm.is_valid():
             statusForm.save()
+            messages.warning(request, '"' +
+                             appointment.customer.name + '" just check out at ' + datetime.now().strftime('%H:%M:%S') + '!')
             return redirect(appointment)
 
     context = {'statusForm': statusForm, 'appointment': appointment}
